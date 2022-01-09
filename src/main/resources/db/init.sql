@@ -7,8 +7,8 @@ CREATE TABLE IF NOT EXISTS job_listing
     id BIGSERIAL PRIMARY KEY,
     title              VARCHAR(100) NOT NULL,
     description        TEXT         NOT NULL,
-    priceForDay        DECIMAL      NOT NULL,
-    decreasePercentage DECIMAL      NOT NULL
+    price_for_day        DECIMAL      NOT NULL,
+    decrease_percentage DECIMAL      NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS technology
@@ -25,15 +25,15 @@ CREATE TABLE IF NOT EXISTS acceptance_criteria
 
 CREATE TABLE IF NOT EXISTS job_listing_technology
 (
-    job_listing_id BIGINT REFERENCES job_listing (id),
-    technology_id  INT REFERENCES technology (id),
-    CONSTRAINT job_listing_technology_key FOREIGN KEY (job_listing_id, technology_id)
+    job_listing_id BIGINT REFERENCES job_listing,
+    technology_id  INT REFERENCES technology,
+    PRIMARY KEY (job_listing_id, technology_id)
 );
 
 CREATE TABLE IF NOT EXISTS job_listing_acceptance_criteria
 (
-    job_listing_id         BIGINT REFERENCES job_listing (id),
-    acceptance_criteria_id INT REFERENCES acceptance_criteria (id),
-    CONSTRAINT job_listing_acceptance_criteria_key FOREIGN KEY (job_listing_id, acceptance_criteria_id)
+    job_listing_id         BIGINT REFERENCES job_listing,
+    acceptance_criteria_id INT REFERENCES acceptance_criteria,
+    PRIMARY KEY (job_listing_id, acceptance_criteria_id)
 );
 

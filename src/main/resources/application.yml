@@ -1,0 +1,9 @@
+spring:
+  datasource:
+    url: ${DATASOURCE:jdbc:postgresql://postgres:5432/convertility}
+    username: ${POSTGRES_USER:postgres}
+    password: ${POSTGRES_PASSWORD:postgres}
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
