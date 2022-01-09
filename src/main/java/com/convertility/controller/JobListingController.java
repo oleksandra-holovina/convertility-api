@@ -17,8 +17,8 @@ public class JobListingController {
     }
 
     @GetMapping
-    public List<JobListingData> getJobListings() {
-        return jobListingService.getJobListings();
+    public List<JobListingData> getJobListings(@RequestParam(required = false) List<Long> technologyIds) {
+        return jobListingService.getJobListings(technologyIds);
     }
 
     @PostMapping
