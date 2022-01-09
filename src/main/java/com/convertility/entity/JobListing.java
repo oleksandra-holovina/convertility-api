@@ -1,22 +1,27 @@
 package com.convertility.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 import java.util.List;
 
 @Entity
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class JobListing {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
     private String description;
-    @ManyToMany
+    @ManyToMany(cascade=CascadeType.PERSIST)
     private List<Technology> technology;
-    @ManyToMany
+    @ManyToMany(cascade=CascadeType.PERSIST)
     private List<AcceptanceCriteria> acceptanceCriteria;
     private double priceForDay;
     private double decreasePercentage;

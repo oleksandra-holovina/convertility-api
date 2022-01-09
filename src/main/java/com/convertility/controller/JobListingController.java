@@ -2,22 +2,27 @@ package com.convertility.controller;
 
 import com.convertility.data.JobListingData;
 import com.convertility.service.JobListingService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@RequestMapping("/job-listings")
 public class JobListingController {
 
-    private JobListingService jobListingService;
+    private final JobListingService jobListingService;
 
     public JobListingController(JobListingService jobListingService) {
         this.jobListingService = jobListingService;
     }
 
-    @GetMapping("/job-listings")
+    @GetMapping
     public List<JobListingData> getJobListings() {
         return jobListingService.getJobListings();
+    }
+
+    @PostMapping
+    public void createNewListing(@RequestBody JobListingData jobListingData) {
+        jobListingService.createJobListing(jobListingData);
     }
 }
