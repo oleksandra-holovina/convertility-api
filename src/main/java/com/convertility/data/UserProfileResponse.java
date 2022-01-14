@@ -6,6 +6,7 @@ import lombok.Data;
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class UserProfileResponse {
+    private String id;
     private String localizedFirstName;
     private String localizedLastName;
     private ProfilePicture profilePicture;

@@ -1,9 +1,11 @@
 package com.convertility.service.auth;
 
-import com.convertility.AuthResponseException;
+import com.convertility.exception.AuthResponseException;
 import com.convertility.data.AuthResponse;
 import com.convertility.data.UserContactResponse;
 import com.convertility.data.UserProfileResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -16,6 +18,8 @@ import org.springframework.web.client.RestTemplate;
 
 @Service
 public class LinkedInUserService {
+
+    private static final Logger LOG = LoggerFactory.getLogger(LinkedInUserService.class.getName());
 
     private final RestTemplate restClient;
 
@@ -71,7 +75,8 @@ public class LinkedInUserService {
                 AuthResponse.class);
 
         if (response == null) {
-            throw new AuthResponseException("Response is empty");
+            LOG.error("Fetch token response is empty");
+            throw new AuthResponseException();
         }
         return response;
     }

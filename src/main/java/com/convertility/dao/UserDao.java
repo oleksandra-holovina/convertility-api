@@ -5,6 +5,6 @@ import org.springframework.data.repository.CrudRepository;
 
 import java.util.Optional;
 
-public interface UserDao extends CrudRepository<User, Long> {
+public interface UserDao extends CrudRepository<User, String> {
     Optional<User> findFirstByAccessToken(String accessToken);
 }

@@ -39,14 +39,14 @@ CREATE TABLE IF NOT EXISTS job_listing_acceptance_criteria
 
 CREATE TABLE IF NOT EXISTS site_user
 (
-    id BIGSERIAL PRIMARY KEY,
+    id VARCHAR(30) PRIMARY KEY,
     first_name VARCHAR(20),
     last_name VARCHAR(20),
     email VARCHAR(50),
     phone_number VARCHAR(15),
     picture_url VARCHAR(50),
     access_token VARCHAR(1000),
-    token_expiration TIMESTAMP
+    token_expiration BIGINT
 );
 
 CREATE INDEX access_token_index ON site_user (access_token);

@@ -1,5 +1,6 @@
 package com.convertility.controller;
 
+import com.convertility.data.AuthenticatedUser;
 import com.convertility.service.auth.AuthService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,7 +16,12 @@ public class AuthController {
     }
 
     @GetMapping("/auth2")
-    public void auth2(@RequestParam String code) {
-        authService.authenticate(code);
+    public AuthenticatedUser auth2(@RequestParam String code) {
+        return authService.createUserOrUpdateToken(code);
+    }
+
+    @GetMapping("/users")
+    public AuthenticatedUser getUser(@RequestParam String accessToken) {
+        return authService.getUser(accessToken);
     }
 }
