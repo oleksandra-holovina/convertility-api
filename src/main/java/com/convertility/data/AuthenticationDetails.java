@@ -5,8 +5,7 @@ import lombok.Data;
 
 @Data
 @Builder
-public class AuthenticatedUser {
+public class AuthenticationDetails {
     private String accessToken;
-    private long expiresAt;
-    private String profilePicture;
+    private int expiresAt;
 }

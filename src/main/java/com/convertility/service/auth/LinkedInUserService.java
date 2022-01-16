@@ -37,7 +37,7 @@ public class LinkedInUserService {
     }
 
     public UserProfileResponse fetchUserProfile(String accessToken) {
-        return fetchUserDetails(accessToken, "https://api.linkedin.com/v2/me", UserProfileResponse.class);
+        return fetchUserDetails(accessToken, "https://api.linkedin.com/v2/me?projection=(id,localizedFirstName,localizedLastName,profilePicture(displayImage~digitalmediaAsset:playableStreams))", UserProfileResponse.class);
     }
 
     public UserContactResponse fetchUserContact(String accessToken) {

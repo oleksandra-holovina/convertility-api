@@ -8,5 +8,5 @@ public class AuthResponse {
     @JsonProperty("access_token")
     private String accessToken;
     @JsonProperty("expires_in")
-    private long expiresIn;
+    private int expiresIn;
 }

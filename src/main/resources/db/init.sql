@@ -44,7 +44,7 @@ CREATE TABLE IF NOT EXISTS site_user
     last_name VARCHAR(20),
     email VARCHAR(50),
     phone_number VARCHAR(15),
-    picture_url VARCHAR(50),
+    picture_url VARCHAR(200),
     access_token VARCHAR(1000),
     token_expiration BIGINT
 );
