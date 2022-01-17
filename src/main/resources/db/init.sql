@@ -2,23 +2,6 @@ CREATE DATABASE convertility ENCODING 'UTF8';
 
 \c convertility
 
-CREATE TABLE IF NOT EXISTS site_user
-(
-    id VARCHAR(30) PRIMARY KEY,
-    first_name VARCHAR(20),
-    last_name VARCHAR(20),
-    email VARCHAR(50),
-    phone_number VARCHAR(15),
-    picture_url VARCHAR(200),
-    bearer_token TEXT,
-    refresh_token TEXT,
-    access_token VARCHAR(1000),
-    token_expiration BIGINT
-);
-
-CREATE INDEX bearer_token_index ON site_user (bearer_token);
-CREATE INDEX refresh_token_index ON site_user (refresh_token);
-
 CREATE TABLE IF NOT EXISTS job_listing
 (
     id BIGSERIAL PRIMARY KEY,
@@ -26,13 +9,13 @@ CREATE TABLE IF NOT EXISTS job_listing
     description        TEXT         NOT NULL,
     price_for_day        DECIMAL      NOT NULL,
     decrease_percentage DECIMAL      NOT NULL,
-    createdBy VARCHAR(30) NOT NULL REFERENCES site_user(id)
+    createdBy VARCHAR(30) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS job_application
 (
     job_listing_id BIGINT REFERENCES job_listing,
-    user_id VARCHAR(30) REFERENCES site_user,
+    user_id VARCHAR(30),
     PRIMARY KEY (job_listing_id, user_id)
 );
 
