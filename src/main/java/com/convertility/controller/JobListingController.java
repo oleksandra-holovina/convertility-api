@@ -25,4 +25,9 @@ public class JobListingController {
     public void createNewListing(@RequestBody JobListingData jobListingData) {
         jobListingService.createJobListing(jobListingData);
     }
+
+    @PostMapping("/{listingId}")
+    public void apply(@PathVariable long listingId) {
+        jobListingService.apply(listingId);
+    }
 }

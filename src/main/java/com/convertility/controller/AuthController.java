@@ -1,8 +1,9 @@
 package com.convertility.controller;
 
-import com.convertility.data.AuthenticationDetails;
+import com.convertility.data.JwtDetails;
 import com.convertility.service.auth.AuthService;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,19 +22,20 @@ public class AuthController {
 
     @GetMapping("/auth2")
     public void auth2(@RequestParam String code, HttpServletResponse response) throws IOException {
-        AuthenticationDetails user = authService.createUserOrUpdateToken(code);
-        setTokenCookie(user.getAccessToken(), user.getExpiresAt(), response);
+        JwtDetails jwtDetails = authService.createUserOrUpdateToken(code);
+        setTokenCookie("bearerToken", jwtDetails.getBearerToken(), jwtDetails.getBearerTokenExpiration(), response);
+        setTokenCookie("refreshToken", jwtDetails.getRefreshToken(), jwtDetails.getRefreshTokenExpiration(), response);
 
         response.sendRedirect("http://localhost:3001/"); //todo: fix
     }
 
-    @GetMapping("/users")
-    public String getUser(@RequestParam String accessToken) {
-        return authService.getProfileUrl(accessToken); //todo: add more data
+    @PostMapping("/auth")
+    public void reAuthenticate(@RequestParam String refreshToken) {
+        authService
     }
 
-    private void setTokenCookie(String token, int expiresIn, HttpServletResponse response) {
-        Cookie cookie = new Cookie("token", token);
+    private void setTokenCookie(String tokenName, String token, int expiresIn, HttpServletResponse response) {
+        Cookie cookie = new Cookie(tokenName, token);
         cookie.setMaxAge(expiresIn);
         cookie.setPath("/");
         response.addCookie(cookie);

@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: ${DATASOURCE:jdbc:postgresql://postgres:5432/convertility}
+    url: ${DATASOURCE:jdbc:postgresql://localhost:5432/convertility}
     username: ${POSTGRES_USER:postgres}
     password: ${POSTGRES_PASSWORD:postgres}
   jpa:
@@ -12,6 +12,9 @@ linkedin:
   client-key: ${LINKEDIN_CLIENT}
   client-secret: ${LINKEDIN_SECRET}
   redirect-uri: ${LINKEDIN_REDIRECT_URI:http://localhost:8080/api/v1/auth2}
+
+jwt:
+  secret: ${JWT_SECRET}
 
 server:
   servlet:

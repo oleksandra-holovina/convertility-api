@@ -22,5 +22,7 @@ public class User {
     private String phoneNumber;
     private String pictureUrl;
     private String accessToken;
+    private String refreshToken;
     private long tokenExpiration;
+    private String bearerToken;
 }

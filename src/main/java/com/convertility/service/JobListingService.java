@@ -58,4 +58,8 @@ public class JobListingService {
                 .build();
         jobListingDao.save(entity);
     }
+
+    public void apply(long listingId) {
+
+    }
 }
