@@ -1,9 +1,11 @@
 package com.convertility.service;
 
+import com.convertility.dao.JobApplicationDao;
 import com.convertility.dao.JobListingDao;
 import com.convertility.data.JobListingData;
 import com.convertility.data.TechStackData;
 import com.convertility.entity.AcceptanceCriteria;
+import com.convertility.entity.JobApplication;
 import com.convertility.entity.JobListing;
 import com.convertility.entity.Technology;
 import org.springframework.stereotype.Service;
@@ -17,9 +19,11 @@ import java.util.stream.StreamSupport;
 public class JobListingService {
 
     private final JobListingDao jobListingDao;
+    private final JobApplicationDao jobApplicationDao;
 
-    public JobListingService(JobListingDao jobListingDao) {
+    public JobListingService(JobListingDao jobListingDao, JobApplicationDao jobApplicationDao) {
         this.jobListingDao = jobListingDao;
+        this.jobApplicationDao = jobApplicationDao;
     }
 
     public List<JobListingData> getJobListings(List<Long> technologyIds) {
@@ -55,11 +59,16 @@ public class JobListingService {
                 .acceptanceCriteria(jobListingData.getAcceptanceCriteria().stream().map(ac -> AcceptanceCriteria.builder().description(ac).build()).collect(Collectors.toList()))
                 .priceForDay(jobListingData.getPriceForDay())
                 .decreasePercentage(jobListingData.getDecreasePercentage())
+                .createdBy(jobListingData.getCreatedBy())
                 .build();
         jobListingDao.save(entity);
     }
 
-    public void apply(long listingId) {
-
+    public void apply(long listingId, String userId) {
+        JobApplication jobApplication = JobApplication.builder()
+                .listingId(listingId)
+                .userId(userId)
+                .build();
+        jobApplicationDao.save(jobApplication);
     }
 }

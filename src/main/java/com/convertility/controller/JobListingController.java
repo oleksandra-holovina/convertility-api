@@ -27,7 +27,7 @@ public class JobListingController {
     }
 
     @PostMapping("/{listingId}")
-    public void apply(@PathVariable long listingId) {
-        jobListingService.apply(listingId);
+    public void apply(@PathVariable long listingId, @RequestParam String userId) {
+        jobListingService.apply(listingId, userId);
     }
 }

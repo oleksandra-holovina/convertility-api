@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: ${DATASOURCE:jdbc:postgresql://localhost:5432/convertility}
+    url: ${DATASOURCE:jdbc:postgresql://postgres:5432/convertility}
     username: ${POSTGRES_USER:postgres}
     password: ${POSTGRES_PASSWORD:postgres}
   jpa:

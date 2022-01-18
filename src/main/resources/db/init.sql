@@ -9,14 +9,14 @@ CREATE TABLE IF NOT EXISTS job_listing
     description        TEXT         NOT NULL,
     price_for_day        DECIMAL      NOT NULL,
     decrease_percentage DECIMAL      NOT NULL,
-    createdBy VARCHAR(30) NOT NULL
+    created_by VARCHAR(30) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS job_application
 (
-    job_listing_id BIGINT REFERENCES job_listing,
+    listing_id BIGINT REFERENCES job_listing,
     user_id VARCHAR(30),
-    PRIMARY KEY (job_listing_id, user_id)
+    PRIMARY KEY (listing_id, user_id)
 );
 
 CREATE TABLE IF NOT EXISTS technology

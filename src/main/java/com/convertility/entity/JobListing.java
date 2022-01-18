@@ -25,4 +25,5 @@ public class JobListing {
     private List<AcceptanceCriteria> acceptanceCriteria;
     private double priceForDay;
     private double decreasePercentage;
+    private String createdBy;
 }
