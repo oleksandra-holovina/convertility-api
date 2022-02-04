@@ -10,6 +10,7 @@ import com.convertility.entity.JobListing;
 import com.convertility.entity.Technology;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -26,16 +27,8 @@ public class JobListingService {
         this.jobApplicationDao = jobApplicationDao;
     }
 
-    public List<JobListingData> getJobListings(List<Long> technologyIds) {
-        Iterable<JobListing> listings;
-        if (CollectionUtils.isEmpty(technologyIds)) {
-            listings = jobListingDao.findAll();
-        } else {
-            listings = jobListingDao.findByTechnologyId(technologyIds);
-        }
-
-        //todo: not save duplicate tech
-        return StreamSupport.stream(listings.spliterator(), false)
+    public List<JobListingData> getJobListings(List<Long> technologyIds, String createdBy, String userId) {
+        return StreamSupport.stream(getListings(technologyIds, createdBy, userId).spliterator(), false)
                 .map(listing -> JobListingData.builder()
                         .id(listing.getId())
                         .title(listing.getTitle())
@@ -50,8 +43,26 @@ public class JobListingService {
                 .collect(Collectors.toList());
     }
 
+    private Iterable<JobListing> getListings(List<Long> technologyIds, String createdBy, String userId) {
+        if (!CollectionUtils.isEmpty(technologyIds)) {
+            return jobListingDao.findJobListingsByTechnologyId(technologyIds);
+        }
+
+        if (StringUtils.hasText(createdBy)) {
+            return jobListingDao.findJobListingsByCreatedBy(createdBy);
+        }
+
+        if (StringUtils.hasText(userId)) {
+            return jobListingDao.findJobListingsByUserId(userId);
+        }
+
+        return jobListingDao.findAll();
+    }
+
     public void createJobListing(JobListingData jobListingData) {
         //todo: add validator
+        //todo: not save duplicate tech
+
         JobListing entity = JobListing.builder()
                 .title(jobListingData.getTitle())
                 .description(jobListingData.getDescription())
