@@ -26,4 +26,6 @@ public class JobListing {
     private double priceForDay;
     private double decreasePercentage;
     private String createdBy;
+    @Enumerated(EnumType.STRING)
+    private ListingStatus status;
 }

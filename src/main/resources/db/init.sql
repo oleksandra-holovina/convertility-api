@@ -2,6 +2,8 @@ CREATE DATABASE convertility ENCODING 'UTF8';
 
 \c convertility
 
+CREATE TYPE listing_status AS ENUM ('NEW', 'PENDING_SELECTION', 'CONFIRMED', 'COMPLETE');
+
 CREATE TABLE IF NOT EXISTS job_listing
 (
     id BIGSERIAL PRIMARY KEY,
@@ -9,7 +11,8 @@ CREATE TABLE IF NOT EXISTS job_listing
     description        TEXT         NOT NULL,
     price_for_day        DECIMAL      NOT NULL,
     decrease_percentage DECIMAL      NOT NULL,
-    created_by VARCHAR(30) NOT NULL
+    created_by VARCHAR(30) NOT NULL,
+    status listing_status NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS job_application

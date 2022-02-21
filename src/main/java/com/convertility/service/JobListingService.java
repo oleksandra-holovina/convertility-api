@@ -4,10 +4,7 @@ import com.convertility.dao.JobApplicationDao;
 import com.convertility.dao.JobListingDao;
 import com.convertility.data.JobListingData;
 import com.convertility.data.TechStackData;
-import com.convertility.entity.AcceptanceCriteria;
-import com.convertility.entity.JobApplication;
-import com.convertility.entity.JobListing;
-import com.convertility.entity.Technology;
+import com.convertility.entity.*;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
@@ -39,6 +36,8 @@ public class JobListingService {
                         .acceptanceCriteria(listing.getAcceptanceCriteria().stream().map(AcceptanceCriteria::getDescription).collect(Collectors.toList()))
                         .priceForDay(listing.getPriceForDay())
                         .decreasePercentage(listing.getDecreasePercentage())
+                        .createdBy(listing.getCreatedBy())
+                        .status(listing.getStatus().getValue())
                         .build())
                 .collect(Collectors.toList());
     }
@@ -71,6 +70,7 @@ public class JobListingService {
                 .priceForDay(jobListingData.getPriceForDay())
                 .decreasePercentage(jobListingData.getDecreasePercentage())
                 .createdBy(jobListingData.getCreatedBy())
+                .status(ListingStatus.NEW)
                 .build();
         jobListingDao.save(entity);
     }

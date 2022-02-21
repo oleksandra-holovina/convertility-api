@@ -16,4 +16,5 @@ public class JobListingData {
     private double priceForDay;
     private double decreasePercentage;
     private String createdBy;
+    private String status;
 }
